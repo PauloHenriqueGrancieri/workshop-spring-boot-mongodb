@@ -29,7 +29,7 @@ public class UserResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable  String id){
+    public ResponseEntity<UserDTO> findById(@PathVariable String id){
         return ResponseEntity.ok().body(new UserDTO(userService.findById(id)));
     }
 
@@ -40,6 +40,12 @@ public class UserResource {
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id){
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
